@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.View
 import android.widget.*
 import com.mburakcakir.kotlinrestsample.R
 import com.mburakcakir.kotlinrestsample.di.Constants
@@ -24,7 +25,9 @@ import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 
 
-class EditUserActivity : AppCompatActivity(){
+class EditUserActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+
 
     internal lateinit var btnEdit: Button
     internal lateinit var btnDelete: Button
@@ -41,6 +44,14 @@ class EditUserActivity : AppCompatActivity(){
         setContentView(R.layout.layout_userprofile)
 
         initComponents()
+
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            checkGender(), android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerGender.setAdapter(adapter)
+        spinnerGender.setOnItemSelectedListener(this)
 
         val isDataHave = intent.getStringExtra("isDataHave")
 
@@ -89,17 +100,39 @@ class EditUserActivity : AppCompatActivity(){
 
     }
 
+    override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        var text : String = parent.getItemAtPosition(pos).toString()
+
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
+    }
+
+    internal fun checkGender(): Int {
+        var sonuc : Int? = null
+        if(DynamicConstants.USER_MODEL!!.gender == "Erkek") {
+            sonuc = R.array.gender_man
+        }
+        if(DynamicConstants.USER_MODEL!!.gender == "Kadın") {
+            sonuc = R.array.gender_woman
+        }
+        else
+            sonuc = R.array.array_gender
+
+        return sonuc!!
+    }
+
     internal fun updateData() {
 
         val userModel= UserModel(
             Integer.parseInt(etAge.text.toString()),
-            "b",
+            spinnerGender.selectedItem.toString(),
             DynamicConstants.USER_MODEL!!.id,
             etName.text.toString(),
             DynamicConstants.USER_MODEL!!.profileImage,
             "null",
             etSurname.text.toString())
-
 
             UtilsService.updateUser(userModel)
     }
@@ -110,7 +143,7 @@ class EditUserActivity : AppCompatActivity(){
             etName.text.toString(),
             etSurname.text.toString(),
             Integer.parseInt(etAge.text.toString()),
-            "male",
+            spinnerGender.selectedItem.toString(),
             DynamicConstants.USER_MODEL!!.profileImage
           )
 
@@ -122,7 +155,6 @@ class EditUserActivity : AppCompatActivity(){
     fun bindData() {
         etName.setText(DynamicConstants.USER_MODEL!!.name)
         etSurname.setText(DynamicConstants.USER_MODEL!!.surname.toUpperCase())
-        //spinnerGender.setText(DynamicConstants.USER_MODEL!!.gender)
         etAge.setText(DynamicConstants.USER_MODEL!!.age.toString())
        imgProfile?.setImageBitmap(Utils.getBitmapByString(DynamicConstants.USER_MODEL!!.profileImage))
     }

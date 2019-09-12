@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">KotlinRestSample</string>
+
+        <string-array name="array_gender">
+            <item>Erkek</item>
+            <item>Kadın</item>
+        </string-array>
+
+    <string-array name="gender_man">
+        <item>Erkek</item>
+        <item>Kadın</item>
+    </string-array>
+
+    <string-array name="gender_woman">
+        <item>Kadın</item>
+        <item>Erkek</item>
+    </string-array>
+
 </resources>

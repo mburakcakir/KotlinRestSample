@@ -24,6 +24,8 @@ class UtilsEditUser {
 
         fun isDataHave(isDataHave : String) {
 
+
+
         }
 
         fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray,activity: Activity) {
@@ -59,6 +61,8 @@ class UtilsEditUser {
                 pickImageFromGallery(activity)
             }
         }
+
+
 
 
 
