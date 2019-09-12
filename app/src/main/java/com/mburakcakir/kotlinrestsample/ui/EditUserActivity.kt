@@ -1,19 +1,18 @@
 package com.mburakcakir.kotlinrestsample.ui
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.google.android.material.textfield.TextInputEditText
 import com.mburakcakir.kotlinrestsample.R
 import com.mburakcakir.kotlinrestsample.di.Constants
 import com.mburakcakir.kotlinrestsample.di.DynamicConstants
@@ -32,16 +31,15 @@ class EditUserActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     internal lateinit var btnEdit: Button
     internal lateinit var btnDelete: Button
     internal lateinit var btnBrowse: Button
-    internal lateinit var etName: EditText
-    internal lateinit var etSurname: EditText
+    internal lateinit var etName: TextInputEditText
+    internal lateinit var etSurname: TextInputEditText
     internal lateinit var spinnerGender: Spinner
-    internal lateinit var etAge: EditText
+    internal lateinit var etAge: TextInputEditText
     internal var imgProfile: ImageView? = null
-    internal val childrenPhotoString = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_userprofile)
+        setContentView(R.layout.activity_userprofile)
 
         initComponents()
 

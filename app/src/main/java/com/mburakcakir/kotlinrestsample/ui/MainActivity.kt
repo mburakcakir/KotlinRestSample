@@ -1,8 +1,8 @@
 package com.mburakcakir.kotlinrestsample.ui
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button
 import com.mburakcakir.kotlinrestsample.R
 import com.mburakcakir.kotlinrestsample.utils.Utils
@@ -20,13 +20,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val recyclerView = findViewById<RecyclerView>(R.id.rcvUsers)
+        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rcvUsers)
         btnAdd = findViewById(R.id.btnAdd)
 
         btnAdd.setOnClickListener {
 
             Utils.openActivity(this@MainActivity)
         }
+
 
 
         refreshLayout.setOnRefreshListener {

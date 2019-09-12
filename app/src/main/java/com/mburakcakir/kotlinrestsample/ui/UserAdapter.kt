@@ -1,7 +1,7 @@
 package com.mburakcakir.kotlinrestsample.ui
 
 import android.app.Activity
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.github.siyamed.shapeimageview.HexagonImageView
 import com.mburakcakir.kotlinrestsample.utils.Utils
 
 
-class UserAdapter(val userList: List<UserModel>,val  thisActivity: Activity): RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(val userList: List<UserModel>,val  thisActivity: Activity): androidx.recyclerview.widget.RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -33,7 +33,7 @@ class UserAdapter(val userList: List<UserModel>,val  thisActivity: Activity): Re
         return userList.size
     }
 
-    inner  class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner  class ViewHolder(itemView: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
         val txtUserName = itemView.findViewById<TextView>(R.id.txtUserName)
         val txtTime = itemView.findViewById<TextView>(R.id.txtTime)
         val txtAge = itemView.findViewById<TextView>(R.id.txtAge)

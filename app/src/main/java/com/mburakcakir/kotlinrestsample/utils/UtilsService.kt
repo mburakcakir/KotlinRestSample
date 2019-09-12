@@ -2,9 +2,9 @@ package com.mburakcakir.kotlinrestsample.utils
 
 import android.app.Activity
 import android.content.Context
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.widget.Button
 import com.mburakcakir.kotlinrestsample.R
@@ -30,7 +30,7 @@ class UtilsService {
 
         var disposable: Disposable? = null
 
-        fun getAllUsers(refreshLayout : SwipeRefreshLayout,recyclerView : RecyclerView,context : Context, activity: Activity) {
+        fun getAllUsers(refreshLayout : androidx.swiperefreshlayout.widget.SwipeRefreshLayout, recyclerView : androidx.recyclerview.widget.RecyclerView, context : Context, activity: Activity) {
             refreshLayout.isRefreshing = true
             disposable = serviceClient.getUsers()
                 .subscribeOn(Schedulers.io())
@@ -82,10 +82,14 @@ class UtilsService {
 
         }
 
-        fun bindToRecycleview(userList:List<UserModel>,recyclerView : RecyclerView,context : Context, activity: Activity)
+        fun bindToRecycleview(userList:List<UserModel>, recyclerView : androidx.recyclerview.widget.RecyclerView, context : Context, activity: Activity)
         {
 
-            recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+                context,
+                androidx.recyclerview.widget.RecyclerView.VERTICAL,
+                false
+            )
             var recyclerViewAdapter = UserAdapter(userList,activity)
             recyclerView.adapter = recyclerViewAdapter
         }
