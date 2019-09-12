@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:background="@drawable/shape" android:padding="20dp">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:padding="10dp">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="0.25">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.3">
+
+                <TextView
+                        android:text="Name "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtName"/>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.7">
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/etName" android:hint="Name"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="0.25">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.3">
+
+                <TextView
+                        android:text="Surname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtSurname"/>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.7">
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/etSurname" android:hint="Surname"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0px" android:layout_weight="0.25">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.3">
+
+                <TextView
+                        android:text="Gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtGender"/>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.7">
+                <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/spinnerGender"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="0.25">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.3">
+
+                <TextView
+                        android:text="Age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtAge"/>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px" android:layout_weight="0.7">
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/etAge" android:hint="Age"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
