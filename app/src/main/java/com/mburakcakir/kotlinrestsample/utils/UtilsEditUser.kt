@@ -17,16 +17,9 @@ class UtilsEditUser {
         fun pickImageFromGallery(activity: Activity) {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            intent.setAction(Intent.ACTION_GET_CONTENT);
             activity.startActivityForResult(intent, Constants.IMAGE_PICK_CODE)
         }
 
-
-        fun isDataHave(isDataHave : String) {
-
-
-
-        }
 
         fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray,activity: Activity) {
             when(requestCode) {

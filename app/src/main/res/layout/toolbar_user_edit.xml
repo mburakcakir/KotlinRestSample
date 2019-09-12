@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="45dp"
+                                   android:background="#FFFFFF"
+                                   android:elevation="5dp"
+                                   android:minHeight="?attr/actionBarSize" android:id="@+id/toolbarUserEdit">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+        <RelativeLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent" android:layout_weight="0.8" android:gravity="center|right"
+                android:layout_alignParentTop="true">
+
+            <Button
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" android:id="@+id/btnDelete"
+                    android:background="@drawable/ic_delete"/>
+        </RelativeLayout>
+        <RelativeLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent" android:layout_weight="0.2" android:gravity="center"
+                android:padding="2dp">
+
+            <Button
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" android:id="@+id/btnEdit"
+                    android:background="@drawable/ic_edit"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.appcompat.widget.Toolbar>
+

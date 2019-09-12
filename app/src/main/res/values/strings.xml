@@ -8,7 +8,7 @@
 
     <string-array name="gender_man">
         <item>Erkek</item>
-        <item>Erkek</item>
+        <item>Kadın</item>
     </string-array>
 
     <string-array name="gender_woman">

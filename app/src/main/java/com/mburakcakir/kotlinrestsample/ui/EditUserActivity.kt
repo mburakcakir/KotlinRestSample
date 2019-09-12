@@ -19,113 +19,97 @@ import com.mburakcakir.kotlinrestsample.di.DynamicConstants
 import com.mburakcakir.kotlinrestsample.model.AddUserModel
 import com.mburakcakir.kotlinrestsample.model.UserModel
 import com.mburakcakir.kotlinrestsample.utils.Utils
+import com.mburakcakir.kotlinrestsample.utils.UtilsEditUser
 import com.mburakcakir.kotlinrestsample.utils.UtilsService
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 
 
-class EditUserActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-
-
+class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
 
     internal lateinit var btnEdit: Button
     internal lateinit var btnDelete: Button
     internal lateinit var btnBrowse: Button
+
     internal lateinit var etName: TextInputEditText
     internal lateinit var etSurname: TextInputEditText
-    internal lateinit var spinnerGender: Spinner
     internal lateinit var etAge: TextInputEditText
+
+    internal var spinnerGender: Spinner? = null
     internal var imgProfile: ImageView? = null
+
+    internal var isDataHave: String = ""
+    internal var sonuc : Int = R.array.array_gender
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_userprofile)
 
+
         initComponents()
+        initListeners()
 
-        val adapter = ArrayAdapter.createFromResource(
-            this,
-            checkGender(), android.R.layout.simple_spinner_item
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerGender.setAdapter(adapter)
-        spinnerGender.setOnItemSelectedListener(this)
 
-        val isDataHave = intent.getStringExtra("isDataHave")
+        isDataHave = intent.getStringExtra("isDataHave")
 
         if (isDataHave.equals("yes")) {
-            Toast.makeText(applicationContext, "YES", Toast.LENGTH_LONG).show()
-            bindData();
+            Toast.makeText(applicationContext, "Bilgiler Yüklendi.", Toast.LENGTH_LONG).show()
+            bindUserData()
+            checkUserGender()
         }
 
         if (isDataHave.equals("no")) {
-            Toast.makeText(applicationContext, "NO", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "Yeni Kayıt Ekranı Oluşturuldu", Toast.LENGTH_LONG).show()
         }
-
-        btnBrowse.setOnClickListener {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    requestPermissions(permissions, Constants.PERMISSION_CODE)
-                } else {
-                    pickImageFromGallery()
-                }
-            } else {
-                pickImageFromGallery()
-            }
-
-        }
-
-        btnEdit.setOnClickListener {
-
-            if(isDataHave.equals("yes"))  {
-                updateData()
-                Toast.makeText(this@EditUserActivity,"Düzenleme tamamlandı.",Toast.LENGTH_SHORT).show()
-            }
-            if(isDataHave.equals("no")) {
-                addData()
-                Toast.makeText(this@EditUserActivity,"Yeni kayıt eklendi.",Toast.LENGTH_SHORT).show()
-            }
-
-        }
-
-        btnDelete.setOnClickListener {
-            UtilsService.deleteOneUser(DynamicConstants.USER_MODEL!!.id)
-            Toast.makeText(this@EditUserActivity,"Kullanıcı silindi.",Toast.LENGTH_SHORT).show()
-        }
+        setSpinnerData()
 
     }
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-        var text : String = parent.getItemAtPosition(pos).toString()
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.btnBrowse -> UtilsEditUser.openGallery(this@EditUserActivity)
+            R.id.btnEdit -> controlDataUpdate()
+            R.id.btnDelete -> UtilsService.deleteOneUser(DynamicConstants.USER_MODEL!!.id,this@EditUserActivity)
+
+        }
+    }
+
+    fun setSpinnerData() {
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            sonuc, android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerGender?.setAdapter(adapter)
 
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>) {
-        // Another interface callback
-    }
-
-    internal fun checkGender(): Int {
-        var sonuc : Int? = null
+    fun checkUserGender(){
         if(DynamicConstants.USER_MODEL!!.gender == "Erkek") {
             sonuc = R.array.gender_man
         }
-        if(DynamicConstants.USER_MODEL!!.gender == "Kadın") {
+        else if(DynamicConstants.USER_MODEL!!.gender == "Kadın") {
             sonuc = R.array.gender_woman
         }
-        else
-            sonuc = R.array.array_gender
-
-        return sonuc!!
     }
 
-    internal fun updateData() {
+    fun controlDataUpdate() {
+        if(isDataHave.equals("yes"))  {
+            updateUserData()
+            Toast.makeText(this@EditUserActivity,"Düzenleme tamamlandı.",Toast.LENGTH_SHORT).show()
+        }
+        if(isDataHave.equals("no")) {
+            addNewUser()
+            Toast.makeText(this@EditUserActivity,"Yeni kayıt eklendi.",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun updateUserData() {
 
         val userModel= UserModel(
             Integer.parseInt(etAge.text.toString()),
-            spinnerGender.selectedItem.toString(),
+            spinnerGender?.selectedItem.toString(),
             DynamicConstants.USER_MODEL!!.id,
             etName.text.toString(),
             DynamicConstants.USER_MODEL!!.profileImage,
@@ -135,26 +119,24 @@ class EditUserActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             UtilsService.updateUser(userModel)
     }
 
-    internal fun addData() {
+    fun addNewUser() {
 
         val userModel= AddUserModel(
             etName.text.toString(),
             etSurname.text.toString(),
             Integer.parseInt(etAge.text.toString()),
-            spinnerGender.selectedItem.toString(),
+            spinnerGender?.selectedItem.toString(),
             DynamicConstants.USER_MODEL!!.profileImage
           )
 
        UtilsService.addUser(userModel)
     }
 
-
-
-    fun bindData() {
+    fun bindUserData() {
         etName.setText(DynamicConstants.USER_MODEL!!.name)
         etSurname.setText(DynamicConstants.USER_MODEL!!.surname.toUpperCase())
         etAge.setText(DynamicConstants.USER_MODEL!!.age.toString())
-       imgProfile?.setImageBitmap(Utils.getBitmapByString(DynamicConstants.USER_MODEL!!.profileImage))
+        imgProfile?.setImageBitmap(Utils.getBitmapByString(DynamicConstants.USER_MODEL!!.profileImage))
     }
 
     fun initComponents() {
@@ -168,22 +150,18 @@ class EditUserActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         imgProfile = findViewById(R.id.imageView)
     }
 
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+    fun initListeners() {
+        btnBrowse.setOnClickListener(this)
+        btnEdit.setOnClickListener(this)
+        btnDelete.setOnClickListener(this)
     }
 
-    companion object {
-        private val IMAGE_PICK_CODE = 1000
-        private val PERMISSION_CODE = 1001
-    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode) {
-            PERMISSION_CODE -> {
+            Constants.PERMISSION_CODE -> {
                 if(grantResults.size>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    pickImageFromGallery()
+                    UtilsEditUser.pickImageFromGallery(this@EditUserActivity)
                 }
                 else {
 
@@ -193,7 +171,6 @@ class EditUserActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             }
         }
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -227,18 +204,7 @@ class EditUserActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         {}
 
     }
-    /*
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        if (resultCode == Activity.RESULT_OK && requestCode == Constants.IMAGE_PICK_CODE) {
-            imgProfile?.setImageURI(data?.data)
-
-        }
-
-    }
-
-*/
 }
 
 

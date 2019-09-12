@@ -2,21 +2,15 @@ package com.mburakcakir.kotlinrestsample.utils
 
 import android.app.Activity
 import android.content.Context
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
-import android.widget.Button
-import com.mburakcakir.kotlinrestsample.R
+import android.widget.Toast
 import com.mburakcakir.kotlinrestsample.model.AddUserModel
 import com.mburakcakir.kotlinrestsample.model.UserModel
 import com.mburakcakir.kotlinrestsample.networking.ServiceApiClient
-import com.mburakcakir.kotlinrestsample.ui.MainActivity
 import com.mburakcakir.kotlinrestsample.ui.UserAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
 
 class UtilsService {
 
@@ -70,13 +64,14 @@ class UtilsService {
                 )
         }
 
-        fun deleteOneUser(id: Int) {
+        fun deleteOneUser(id: Int, activity: Activity) {
 
             disposable = serviceClient.deleteUser(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { result -> Log.v("USER ID ${id}: ", "" + result) },
+                    { result -> Log.v("USER ID ${id}: ", "" + result)
+                        Toast.makeText(activity,"Kullanıcı silindi.", Toast.LENGTH_SHORT).show()},
                     { error -> Log.e("ERROR", error.message) }
                 )
 

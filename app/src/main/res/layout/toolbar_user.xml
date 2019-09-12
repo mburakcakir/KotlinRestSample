@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="45dp"
+                                   android:background="#FFFFFF"
+                                   android:elevation="5dp"
+                                   android:minHeight="?attr/actionBarSize" android:id="@+id/toolbarMain">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:gravity="center|right" android:paddingRight="10dp">
+
+        <Button
+                android:layout_width="24dp"
+                android:layout_height="24dp" android:id="@+id/btnAdd"
+                android:background="@drawable/ic_add"/>
+
+    </RelativeLayout>
+
+</androidx.appcompat.widget.Toolbar>
+
