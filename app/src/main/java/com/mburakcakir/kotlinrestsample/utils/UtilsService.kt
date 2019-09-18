@@ -59,7 +59,7 @@ class UtilsService {
                 else
                     layoutError.visibility = View.VISIBLE
             }
-            Toast.makeText(activity, "GELMEDİ",Toast.LENGTH_SHORT).show()
+         //   Toast.makeText(activity, "GELMEDİ",Toast.LENGTH_SHORT).show()
         }
 
 
@@ -77,7 +77,7 @@ class UtilsService {
 
                     },
                     { error -> Log.e("ERROR", error.message)
-                       Toast.makeText(activity,"NET YOK ", Toast.LENGTH_SHORT).show()
+        //               Toast.makeText(activity,"NET YOK ", Toast.LENGTH_SHORT).show()
                         connectionControl = false
                       showErrorMessage()
                         refreshLayout.isRefreshing = false
