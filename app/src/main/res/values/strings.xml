@@ -16,4 +16,6 @@
         <item>Erkek</item>
     </string-array>
 
+    <string name="connectionWarning">You have to have internet connection to list user data.</string>
+
 </resources>

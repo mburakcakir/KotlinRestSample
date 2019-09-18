@@ -10,21 +10,28 @@
             layout="@layout/toolbar_user"></include>
 
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refreshLayout"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_weight="0.95">
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvUsers"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvUsers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        </androidx.recyclerview.widget.RecyclerView>
+
+            </androidx.recyclerview.widget.RecyclerView>
 
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <include layout="@layout/layout_error" android:layout_width="match_parent"
+                 android:layout_height="match_parent"></include>
+    </FrameLayout>
 
 
 </LinearLayout>

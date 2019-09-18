@@ -38,8 +38,12 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
     internal var spinnerGender: Spinner? = null
     internal var imgProfile: ImageView? = null
 
+
     internal var isDataHave: String = ""
     internal var sonuc : Int = R.array.array_gender
+    internal var userImageString: String = ""
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,7 +116,7 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
             spinnerGender?.selectedItem.toString(),
             DynamicConstants.USER_MODEL!!.id,
             etName.text.toString(),
-            DynamicConstants.USER_MODEL!!.profileImage,
+            userImageString,
             "null",
             etSurname.text.toString())
 
@@ -126,7 +130,7 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
             etSurname.text.toString(),
             Integer.parseInt(etAge.text.toString()),
             spinnerGender?.selectedItem.toString(),
-            DynamicConstants.USER_MODEL!!.profileImage
+            userImageString
           )
 
        UtilsService.addUser(userModel)
@@ -148,6 +152,8 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
         spinnerGender = findViewById(R.id.spinnerGender)
         etAge = findViewById(R.id.etAge)
         imgProfile = findViewById(R.id.imageView)
+
+
     }
 
     fun initListeners() {
@@ -188,8 +194,7 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos)
                 val b = baos.toByteArray()
                 val temp = Base64.encodeToString(b, Base64.DEFAULT)
-                val userImageString : String
-                userImageString = "data:image/jpeg;base64," + temp
+                userImageString = temp
                 imgProfile!!.setImageBitmap(selectedImage)
              //   imgProfile!!.setImageBitmap(Utils.getBitmapByString(userImageString))
                 Log.d("userImageString", "parsing " + userImageString);
