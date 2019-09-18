@@ -30,7 +30,7 @@ dependencies {
 
     api 'androidx.recyclerview:recyclerview:1.0.0'
 
-    api 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    api 'com.github.siyamed:android-user_edit_shape-imageview:0.9.+@aar'
     api 'androidx.cardview:cardview:1.0.0'
     api 'com.google.android.material:material:1.0.0'
 
