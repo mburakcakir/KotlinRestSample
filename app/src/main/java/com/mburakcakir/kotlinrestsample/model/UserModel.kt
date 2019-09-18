@@ -1,5 +1,4 @@
 package com.mburakcakir.kotlinrestsample.model
-import androidx.annotation.Nullable
 import com.google.gson.annotations.SerializedName
 
 data class AddUserModel(

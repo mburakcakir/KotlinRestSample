@@ -49,19 +49,14 @@ class UtilsService {
             this.activity = activity
         }
 
-        fun  showErrorMessage() {
-                layoutError.visibility = View.VISIBLE
+        fun  checkErrorMessage() {
 
+            layoutError.visibility = View.VISIBLE
             btnRetry.setOnClickListener {
-                getAllUsers()
-                if(connectionControl)
-                    layoutError.visibility = View.INVISIBLE
-                else
-                    layoutError.visibility = View.VISIBLE
+                if(!connectionControl)
+                    getAllUsers()
             }
-         //   Toast.makeText(activity, "GELMEDİ",Toast.LENGTH_SHORT).show()
         }
-
 
         fun getAllUsers() {
             refreshLayout.isRefreshing = true
@@ -71,20 +66,32 @@ class UtilsService {
                 .subscribe(
                     {
                             result -> Log.v("USERS", "" + result)
-                        bindToRecycleview(result,recyclerView,context,activity)
-                        refreshLayout.isRefreshing = false
-                        connectionControl = true
+                        bindToRecycleview(result)
+                        internetConnectionProcess()
+
 
                     },
                     { error -> Log.e("ERROR", error.message)
-        //               Toast.makeText(activity,"NET YOK ", Toast.LENGTH_SHORT).show()
-                        connectionControl = false
-                      showErrorMessage()
-                        refreshLayout.isRefreshing = false
+                        noInternetConnectionProcess()
+
 
                     }
                 )
         }
+
+        fun noInternetConnectionProcess() {
+            refreshLayout.isRefreshing = false
+            layoutError.visibility = View.VISIBLE
+            Toast.makeText(activity,"İnternet Bağlantınızı Kontrol Ediniz.",Toast.LENGTH_SHORT).show()
+            checkErrorMessage()
+        }
+
+        fun internetConnectionProcess() {
+            refreshLayout.isRefreshing = false
+            layoutError.visibility = View.INVISIBLE
+            Toast.makeText(context,"Bilgiler Yüklendi.",Toast.LENGTH_SHORT).show()
+        }
+
 
         fun addUser(user: AddUserModel) {
 
@@ -108,7 +115,7 @@ class UtilsService {
                 )
         }
 
-        fun deleteOneUser(id: Int, activity: Activity) {
+        fun deleteOneUser(id: Int) {
 
             disposable = serviceClient.deleteUser(id)
                 .subscribeOn(Schedulers.io())
@@ -121,7 +128,7 @@ class UtilsService {
 
         }
 
-        fun bindToRecycleview(userList:List<UserModel>, recyclerView : androidx.recyclerview.widget.RecyclerView, context : Context, activity: Activity)
+        fun bindToRecycleview(userList:List<UserModel>)
         {
 
             recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(

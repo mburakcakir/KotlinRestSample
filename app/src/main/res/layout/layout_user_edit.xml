@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:background="@drawable/shape" android:padding="20dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/shape"
+              android:padding="20dp" android:id="@+id/userEdit">
+
 
     <LinearLayout
             android:orientation="vertical"
@@ -14,23 +17,22 @@
                 android:layout_height="0dp" android:layout_weight="0.25">
             <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0px" android:layout_weight="0.3">
-
-                <TextView
-                        android:text="Name "
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/txtName"/>
-            </RelativeLayout>
-            <RelativeLayout
-                    android:layout_width="match_parent"
                     android:layout_height="0px" android:layout_weight="0.7">
 
-                <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:ems="10"
-                        android:id="@+id/etName" android:hint="Name"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+                                                                       android:layout_height="match_parent"
+                                                                       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:ems="10"
+                            android:id="@+id/etName" android:hint="Name"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -39,23 +41,20 @@
                 android:layout_height="0dp" android:layout_weight="0.25">
             <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0px" android:layout_weight="0.3">
-
-                <TextView
-                        android:text="Surname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/txtSurname"/>
-            </RelativeLayout>
-            <RelativeLayout
-                    android:layout_width="match_parent"
                     android:layout_height="0px" android:layout_weight="0.7">
 
-                <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:ems="10"
-                        android:id="@+id/etSurname" android:hint="Surname"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+                                                                       android:layout_height="match_parent"
+                                                                       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:ems="10"
+                            android:id="@+id/etSurname" android:hint="Surname"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -64,19 +63,17 @@
                 android:layout_height="0px" android:layout_weight="0.25">
             <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0px" android:layout_weight="0.3">
-
-                <TextView
-                        android:text="Gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/txtGender"/>
-            </RelativeLayout>
-            <RelativeLayout
-                    android:layout_width="match_parent"
                     android:layout_height="0px" android:layout_weight="0.7">
-                <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/spinnerGender"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+                                                                       android:layout_height="match_parent"
+                                                                       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                                                       android:hint="Spinner"
+                >
+                    <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/spinnerGender"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -85,24 +82,23 @@
                 android:layout_height="0dp" android:layout_weight="0.25">
             <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0px" android:layout_weight="0.3">
-
-                <TextView
-                        android:text="Age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/txtAge"/>
-            </RelativeLayout>
-            <RelativeLayout
-                    android:layout_width="match_parent"
                     android:layout_height="0px" android:layout_weight="0.7">
 
-                <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:ems="10"
-                        android:id="@+id/etAge" android:hint="Age"/>
+                <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+                                                                       android:layout_height="match_parent"
+                                                                       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:ems="10"
+                            android:id="@+id/etAge" android:hint="Age"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+
+</LinearLayout>

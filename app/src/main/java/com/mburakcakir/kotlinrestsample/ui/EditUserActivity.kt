@@ -1,11 +1,9 @@
 package com.mburakcakir.kotlinrestsample.ui
 
-import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
@@ -38,34 +36,22 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
     internal var spinnerGender: Spinner? = null
     internal var imgProfile: ImageView? = null
 
-
     internal var isDataHave: String = ""
     internal var sonuc : Int = R.array.array_gender
     internal var userImageString: String = ""
-
-
-
+    internal lateinit var imageString : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_userprofile)
+        setContentView(R.layout.activity_user_profile)
 
 
         initComponents()
         initListeners()
 
-
         isDataHave = intent.getStringExtra("isDataHave")
 
-        if (isDataHave.equals("yes")) {
-            Toast.makeText(applicationContext, "Bilgiler Yüklendi.", Toast.LENGTH_LONG).show()
-            bindUserData()
-            checkUserGender()
-        }
-
-        if (isDataHave.equals("no")) {
-            Toast.makeText(applicationContext, "Yeni Kayıt Ekranı Oluşturuldu", Toast.LENGTH_LONG).show()
-        }
+        baseDataControl()
         setSpinnerData()
 
     }
@@ -74,8 +60,39 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
         when (v.id) {
             R.id.btnBrowse -> UtilsEditUser.openGallery(this@EditUserActivity)
             R.id.btnEdit -> controlDataUpdate()
-            R.id.btnDelete -> UtilsService.deleteOneUser(DynamicConstants.USER_MODEL!!.id,this@EditUserActivity)
+            R.id.btnDelete -> UtilsService.deleteOneUser(DynamicConstants.USER_MODEL!!.id)
 
+        }
+    }
+
+    fun initComponents() {
+        btnEdit = findViewById(R.id.btnEdit)
+        btnDelete = findViewById(R.id.btnDelete)
+        btnBrowse = findViewById(R.id.btnBrowse)
+        etName = findViewById(R.id.etName)
+        etSurname = findViewById(R.id.etSurname)
+        spinnerGender = findViewById(R.id.spinnerGender)
+        etAge = findViewById(R.id.etAge)
+        imgProfile = findViewById(R.id.imageView)
+
+
+    }
+
+    fun initListeners() {
+        btnBrowse.setOnClickListener(this)
+        btnEdit.setOnClickListener(this)
+        btnDelete.setOnClickListener(this)
+    }
+
+    fun baseDataControl() {
+        if (isDataHave.equals("yes")) {
+            Toast.makeText(applicationContext, "Bilgiler Yüklendi.", Toast.LENGTH_LONG).show()
+            bindUserData()
+            checkUserGender()
+        }
+
+        if (isDataHave.equals("no")) {
+            Toast.makeText(applicationContext, "Yeni Kayıt Ekranı Oluşturuldu", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -116,7 +133,7 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
             spinnerGender?.selectedItem.toString(),
             DynamicConstants.USER_MODEL!!.id,
             etName.text.toString(),
-            userImageString,
+            isImageEmptyUser(),
             "null",
             etSurname.text.toString())
 
@@ -130,8 +147,8 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
             etSurname.text.toString(),
             Integer.parseInt(etAge.text.toString()),
             spinnerGender?.selectedItem.toString(),
-            userImageString
-          )
+            isImageEmptyRegister()
+        )
 
        UtilsService.addUser(userModel)
     }
@@ -143,25 +160,23 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
         imgProfile?.setImageBitmap(Utils.getBitmapByString(DynamicConstants.USER_MODEL!!.profileImage))
     }
 
-    fun initComponents() {
-        btnEdit = findViewById(R.id.btnEdit)
-        btnDelete = findViewById(R.id.btnDelete)
-        btnBrowse = findViewById(R.id.btnBrowse)
-        etName = findViewById(R.id.etName)
-        etSurname = findViewById(R.id.etSurname)
-        spinnerGender = findViewById(R.id.spinnerGender)
-        etAge = findViewById(R.id.etAge)
-        imgProfile = findViewById(R.id.imageView)
 
 
+    fun isImageEmptyUser() : String {
+        if(userImageString == "")
+            imageString = DynamicConstants.USER_MODEL!!.profileImage
+        else
+            imageString = userImageString
+        return imageString
     }
 
-    fun initListeners() {
-        btnBrowse.setOnClickListener(this)
-        btnEdit.setOnClickListener(this)
-        btnDelete.setOnClickListener(this)
+    fun isImageEmptyRegister() : String {
+        if(userImageString == "")
+            imageString = DynamicConstants.baseUrl
+        else
+            imageString = userImageString
+        return imageString
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode) {
@@ -177,7 +192,6 @@ class EditUserActivity : AppCompatActivity(),  View.OnClickListener {
             }
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
